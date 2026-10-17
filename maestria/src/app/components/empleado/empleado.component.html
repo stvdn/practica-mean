@@ -1,0 +1,15 @@
+<main *ngIf="vm$ | async as vm">
+  <header>
+    <h1>Gestión de empleados</h1>
+    <button type="button" (click)="empleadoService.load()" [disabled]="vm.loading">Actualizar lista</button>
+  </header>
+  <p *ngIf="vm.loading" role="status">Procesando solicitud…</p>
+  <p *ngIf="vm.error" role="alert" class="error">{{ vm.error }}</p>
+  <p *ngIf="vm.message" role="status">{{ vm.message }}</p>
+  <div class="employee-layout" [attr.aria-busy]="vm.loading">
+    <app-empleado-form [empleado]="vm.selected" [busy]="vm.loading" [revision]="vm.formRevision"
+      (save)="empleadoService.save($event)" (cancel)="empleadoService.cancel()"></app-empleado-form>
+    <app-empleado-table [empleados]="vm.empleados" [busy]="vm.loading"
+      (edit)="empleadoService.select($event)" (remove)="empleadoService.delete($event)"></app-empleado-table>
+  </div>
+</main>

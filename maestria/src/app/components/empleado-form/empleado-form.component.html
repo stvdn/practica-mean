@@ -1,0 +1,21 @@
+<section class="panel">
+  <h2>{{ empleado ? 'Editar empleado' : 'Registrar empleado' }}</h2>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label for="nombre">Nombre</label>
+    <input id="nombre" formControlName="nombre" autocomplete="name" minlength="3" maxlength="100" required aria-describedby="nombre-error">
+    <small id="nombre-error" class="field-error" *ngIf="form.controls.nombre.touched && form.controls.nombre.invalid">Ingrese entre 3 y 100 caracteres.</small>
+    <label for="cargo">Cargo</label>
+    <input id="cargo" formControlName="cargo" minlength="2" maxlength="100" required aria-describedby="cargo-error">
+    <small id="cargo-error" class="field-error" *ngIf="form.controls.cargo.touched && form.controls.cargo.invalid">Ingrese entre 2 y 100 caracteres.</small>
+    <label for="departamento">Departamento</label>
+    <input id="departamento" formControlName="departamento" minlength="2" maxlength="100" required aria-describedby="departamento-error">
+    <small id="departamento-error" class="field-error" *ngIf="form.controls.departamento.touched && form.controls.departamento.invalid">Ingrese entre 2 y 100 caracteres.</small>
+    <label for="sueldo">Sueldo</label>
+    <input id="sueldo" type="number" formControlName="sueldo" min="0" step="any" required aria-describedby="sueldo-error">
+    <small id="sueldo-error" class="field-error" *ngIf="form.controls.sueldo.touched && form.controls.sueldo.invalid">Ingrese un sueldo mayor o igual a cero.</small>
+    <div class="actions">
+      <button type="submit" [disabled]="busy">{{ empleado ? 'Guardar cambios' : 'Crear empleado' }}</button>
+      <button type="button" (click)="cancel.emit()" [disabled]="busy">{{ empleado ? 'Cancelar' : 'Limpiar' }}</button>
+    </div>
+  </form>
+</section>

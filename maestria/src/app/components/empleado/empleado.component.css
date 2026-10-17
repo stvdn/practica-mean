@@ -1,0 +1,6 @@
+main { max-width: 1200px; margin: 0 auto; padding: 24px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.employee-layout { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(0, 2fr); gap: 24px; align-items: start; }
+.employee-layout > * { min-width: 0; }
+.error { color: #a02020; }
+@media (max-width: 800px) { .employee-layout { grid-template-columns: 1fr; } main { padding: 16px; } }

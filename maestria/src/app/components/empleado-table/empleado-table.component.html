@@ -1,0 +1,28 @@
+<section class="panel">
+  <h2>Empleados registrados ({{ empleados.length }})</h2>
+  <div class="table-scroll">
+    <table>
+      <caption class="sr-only">Listado y operaciones de empleados</caption>
+      <thead><tr><th scope="col">Nombre</th><th scope="col">Cargo</th><th scope="col">Departamento</th><th scope="col">Sueldo</th><th scope="col">Operaciones</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let empleado of empleados; trackBy: trackById">
+          <td>{{ empleado.nombre }}</td><td>{{ empleado.cargo }}</td><td>{{ empleado.departamento }}</td><td>{{ empleado.sueldo | number:'1.2-2' }}</td>
+          <td>
+            <div class="actions" *ngIf="pendingId !== empleado._id; else confirmation">
+              <button type="button" [disabled]="busy" (click)="edit.emit(empleado)">Editar</button>
+              <button type="button" [disabled]="busy" (click)="pendingId = empleado._id">Eliminar</button>
+            </div>
+            <ng-template #confirmation>
+              <p>¿Eliminar a {{ empleado.nombre }}?</p>
+              <div class="actions">
+                <button type="button" [disabled]="busy" (click)="confirmDelete(empleado._id)">Confirmar eliminación</button>
+                <button type="button" [disabled]="busy" (click)="pendingId = null">Cancelar</button>
+              </div>
+            </ng-template>
+          </td>
+        </tr>
+        <tr *ngIf="!empleados.length"><td colspan="5">{{ busy ? 'Cargando empleados…' : 'No hay empleados registrados.' }}</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
