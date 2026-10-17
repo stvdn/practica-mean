@@ -39,6 +39,8 @@ Para ejecutar Artillery manualmente contra un backend ya configurado con una bas
 
 ## Evidencia y análisis
 
+Para presentar el procedimiento y sus métricas, consultar la [explicación de la prueba de estrés](EXPLICACION_ESTRES.md).
+
 Resultados de la ejecución del 17 de octubre de 2026 con Node.js 22.19 y Artillery 2.0.34:
 
 | Evaluación | Resultado |
