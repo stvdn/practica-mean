@@ -1,0 +1,16 @@
+{
+  "name": "practica-mean",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.18.0" },
+  "scripts": {
+    "test": "npm test --prefix code/backend",
+    "test:http": "npm run test:http --prefix code/backend",
+    "test:stress": "artillery run --output reports/stress-manual-raw.json stress-test.yml",
+    "test:stress:atlas": "npm run test:stress:atlas --prefix code/backend",
+    "test:stress:smoke": "npm run test:stress:atlas --prefix code/backend -- --smoke",
+    "report:stress": "node scripts/stress-report.mjs reports/stress-full-raw.json"
+  },
+  "devDependencies": { "artillery": "2.0.34" }
+}

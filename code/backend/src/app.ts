@@ -6,10 +6,10 @@ import { employeeRoutes } from './routes/empleados.routes.js';
 import { errorHandler, AppError } from './middleware/error-handler.js';
 
 // The HTTP layer receives persistence from the composition root.
-export function createApp(repository: IEmployeeRepository) {
+export function createApp(repository: IEmployeeRepository, { logging = true } = {}) {
   const app = express();
   app.use(cors());
-  app.use(morgan('dev'));
+  if (logging) app.use(morgan('dev'));
   app.use(express.json({ limit: '100kb', strict: false }));
   app.use('/api/v1/employees', employeeRoutes(repository));
   app.use('/api/v1/empleados', employeeRoutes(repository));

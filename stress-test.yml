@@ -1,0 +1,56 @@
+config:
+  target: "http://127.0.0.1:3000"
+  processor: "./scripts/stress-hooks.cjs"
+  phases:
+    - duration: 20
+      arrivalRate: 5
+      name: "Calentamiento"
+    - duration: 30
+      arrivalRate: 15
+      rampTo: 50
+      name: "Saturacion incremental"
+  plugins:
+    expect:
+      reportFailuresAsErrors: true
+      outputFormat: "silent"
+    ensure:
+      thresholds:
+        - "http.response_time.p99": 200
+      conditions:
+        - expression: "vusers.failed == 0 or vusers.failed / vusers.created <= 0.01"
+        - expression: "http.codes.201 == payload.valid.sent"
+        - expression: "http.codes.400 == payload.invalid.sent"
+        - expression: "http.codes.200 == http.codes.201"
+scenarios:
+  - name: "Registro valido, rechazo DTO y limpieza"
+    beforeScenario: "initialize"
+    flow:
+      - post:
+          url: "/api/v1/employees"
+          beforeRequest: "countValid"
+          json:
+            nombre: "Prueba {{ runId }}"
+            cargo: "Software Architect"
+            departamento: "I+D"
+            sueldo: 4200
+          capture:
+            - json: "$.data._id"
+              as: "employeeId"
+          expect:
+            - statusCode: 201
+      - think: 1
+      - post:
+          url: "/api/v1/employees"
+          beforeRequest: "countInvalid"
+          json:
+            nombre: "Al"
+            cargo: "Dev"
+            departamento: "TI"
+            sueldo: -500
+          expect:
+            - statusCode: 400
+      # Borra exclusivamente el registro creado por este usuario virtual.
+      - delete:
+          url: "/api/v1/employees/{{ employeeId }}"
+          expect:
+            - statusCode: 200
