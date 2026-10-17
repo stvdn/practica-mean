@@ -4,7 +4,7 @@ CRUD de empleados: backend TypeScript en `code/backend` y cliente Angular en `ma
 
 ## Ejecución
 
-Requiere Node.js 20+ (verificado con Node 22), npm y MongoDB local o Atlas.
+Requiere Node.js 22.18+ (24 LTS recomendado), npm y MongoDB local o Atlas.
 
 Backend, desde PowerShell:
 
@@ -16,7 +16,7 @@ $env:PORT = '3000'
 npm run dev
 ```
 
-Las variables son opcionales con esos valores predeterminados. `.env.example` documenta las opciones; el servidor lee variables del entorno y no carga archivos `.env` automáticamente. Espera la conexión a MongoDB antes de escuchar peticiones.
+Las variables son opcionales con esos valores predeterminados. `.env.example` documenta las opciones; los scripts del backend cargan `.env` si existe y respetan las variables de entorno existentes. Espera la conexión a MongoDB antes de escuchar peticiones.
 
 En otra terminal:
 
@@ -81,6 +81,7 @@ La lista paginada agrega `meta: { total, page, limit, pages }`. Errores: 400 val
 cd code/backend
 npm run build
 npm test
+npm run test:http
 cd ../../maestria
 npm run build
 $env:CHROME_BIN = 'C:/Program Files/Google/Chrome/Application/chrome.exe'

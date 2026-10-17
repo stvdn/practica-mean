@@ -1,8 +1,14 @@
-# Práctica 03: Stack MEAN
+# Prácticas MEAN: arquitectura y pruebas
 
 **Asignatura:** Patrones de Diseño de APIs
 
 **Carrera:** Maestría de Software
+
+## Práctica 05: evaluación de calidad mediante testing
+
+La [práctica de pruebas](docs/PRACTICA_05.md) evalúa modularidad y capacidad de prueba con Jest, y comportamiento temporal y capacidad con Artillery contra MongoDB Atlas. Incluye mocks del repositorio, tráfico válido e inválido, controles de p99 y limpieza de datos de prueba.
+
+## Práctica 03: Stack MEAN
 
 ## Objetivo
 
@@ -21,7 +27,7 @@ Se desarrollaron los cuatro retos de la guía:
 
 ## Ejecución
 
-Con Node.js 20+ y MongoDB disponible, ejecutar en dos terminales desde la raíz del proyecto:
+Con Node.js 22.18+ (24 LTS recomendado) y MongoDB disponible, ejecutar en dos terminales desde la raíz del proyecto:
 
 ```powershell
 # Backend: http://localhost:3000
@@ -39,6 +45,8 @@ npm start
 ```
 
 La conexión predeterminada es `mongodb://127.0.0.1:27017/usuarios_db`; puede cambiarse mediante la variable de entorno `MONGO_URI`.
+
+Los scripts del backend cargan `code/backend/.env` si existe. Este archivo es local y está excluido de Git; usar `.env.example` como referencia sin publicar credenciales.
 
 ## Evidencia
 

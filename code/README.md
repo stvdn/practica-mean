@@ -4,7 +4,7 @@ API REST de gestión de empleados con Node.js, Express, TypeScript, MongoDB y Zo
 
 ## Ejecución
 
-Requiere Node.js 20+, npm y MongoDB local o Atlas.
+Requiere Node.js 22.18+ (24 LTS recomendado), npm y MongoDB local o Atlas.
 
 ```powershell
 cd backend
@@ -15,7 +15,7 @@ npm start
 
 Para desarrollo: `npm run dev`. El servidor escucha en `http://localhost:3000` después de conectar a MongoDB.
 
-Por defecto usa `mongodb://127.0.0.1:27017/usuarios_db`. Las opciones están en `backend/.env.example`. Para cambiarlas, definir `$env:MONGO_URI` y `$env:PORT` en PowerShell antes de iniciar. El servidor no carga archivos `.env` automáticamente.
+Por defecto usa `mongodb://127.0.0.1:27017/usuarios_db`. Los scripts `start` y `dev` cargan `backend/.env` si existe. Las opciones están en `backend/.env.example`; también se pueden definir `$env:MONGO_URI` y `$env:PORT` en PowerShell.
 
 ## API
 
@@ -30,9 +30,10 @@ Campos: `nombre`, `cargo`, `departamento` y `sueldo`. Los ejemplos están en `ba
 ```powershell
 cd backend
 npm test
+npm run test:http
 ```
 
-Las pruebas no sustituyen la integración con MongoDB.
+`npm test` ejecuta Jest con mocks del repositorio; `test:http` verifica el contrato HTTP con persistencia en memoria. La [práctica 05](../docs/PRACTICA_05.md) agrega la evaluación de carga contra Atlas.
 
 ## Informe
 
