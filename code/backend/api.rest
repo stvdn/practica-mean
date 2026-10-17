@@ -1,0 +1,44 @@
+@baseUrl = http://localhost:3000/api/v1/employees
+@employeeId = 000000000000000000000001
+
+### Listado completo
+GET {{baseUrl}}
+
+### Paginación
+GET {{baseUrl}}?page=1&limit=10
+
+### Crear: copiar data._id a employeeId
+POST {{baseUrl}}
+Content-Type: application/json
+
+{"nombre":"Andrés Mendoza","cargo":"Arquitecto","departamento":"Innovación","sueldo":4500}
+
+### Consulta individual
+GET {{baseUrl}}/{{employeeId}}
+
+### Sustitución de campos de negocio
+PUT {{baseUrl}}/{{employeeId}}
+Content-Type: application/json
+
+{"nombre":"Andrés Mendoza","cargo":"Director","departamento":"Innovación","sueldo":5000}
+
+### Actualización parcial
+PATCH {{baseUrl}}/{{employeeId}}
+Content-Type: application/json
+
+{"sueldo":5500}
+
+### Eliminar
+DELETE {{baseUrl}}/{{employeeId}}
+
+### Validación: 400 antes de persistir
+POST {{baseUrl}}
+Content-Type: application/json
+
+{"nombre":"An","cargo":"Developer","departamento":"TI","sueldo":-200}
+
+### ID inválido: 400
+GET {{baseUrl}}/incorrecto
+
+### Recurso inexistente: 404
+GET {{baseUrl}}/ffffffffffffffffffffffff
