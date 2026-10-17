@@ -36,4 +36,4 @@ Las pruebas no sustituyen la integración con MongoDB.
 
 ## Informe
 
-Ver [informe de la práctica y captura](../PRACTICA.md).
+Ver [informe de la práctica y captura](../README.md).

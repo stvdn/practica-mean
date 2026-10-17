@@ -32,4 +32,4 @@ La compilación se genera en `dist/`, excluido de Git junto con las dependencias
 
 ## Informe
 
-Ver [informe de la práctica y captura](../PRACTICA.md).
+Ver [informe de la práctica y captura](../README.md).
