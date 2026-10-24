@@ -6,6 +6,7 @@ import { EmployeeService } from '../../services/empleado.service';
   templateUrl: './empleado.component.html',
   styleUrl: './empleado.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [EmployeeService],
 })
 export class EmpleadoComponent {
   readonly vm$ = this.empleadoService.vm$;

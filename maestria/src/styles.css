@@ -11,6 +11,8 @@ button:disabled { opacity: .6; cursor: wait; }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 .field-error { color: #a02020; display: block; }
 .table-scroll { overflow-x: auto; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+fieldset p { margin: 6px 0; font-size: .875rem; }
 table { border-collapse: collapse; width: 100%; text-align: left; }
 th, td { padding: 12px 8px; border-bottom: 1px solid #d5dce5; vertical-align: top; }
 td .actions { margin-top: 0; }

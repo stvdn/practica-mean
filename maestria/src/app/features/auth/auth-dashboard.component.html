@@ -1,0 +1,13 @@
+<main class="auth-page">
+  <section class="panel" aria-labelledby="auth-title">
+    <h1 id="auth-title">{{ registering ? 'Crear cuenta' : 'Iniciar sesión' }}</h1>
+    <p>{{ registering ? 'Regístrese para gestionar los empleados.' : 'Ingrese para acceder a la gestión de empleados.' }}</p>
+    <p *ngIf="registered && !registering" role="status">Cuenta creada. Inicie sesión con sus credenciales.</p>
+    <p *ngIf="expired && !registering" role="status">Su sesión terminó. Inicie sesión nuevamente.</p>
+    <p *ngIf="error" role="alert" class="field-error">{{ error }}</p>
+    <app-auth-form [registering]="registering" [busy]="busy" (submitCredentials)="submit($event)"></app-auth-form>
+    <p><a [routerLink]="registering ? '/auth' : '/auth/register'">
+      {{ registering ? 'Ya tengo una cuenta: iniciar sesión' : 'Crear una cuenta' }}
+    </a></p>
+  </section>
+</main>

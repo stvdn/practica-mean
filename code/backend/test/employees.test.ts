@@ -4,6 +4,7 @@ import { once } from 'node:events';
 import { createApp } from '../src/app.js';
 import type { IEmployeeRepository } from '../src/repositories/employee.repository.js';
 import type { Employee, EmployeeData, EmployeeQuery } from '../src/domain/employee.js';
+import { MemoryAuthRepository, testSecret, testToken } from './helpers/auth.js';
 
 const valid = { nombre: 'Andrés Mendoza', cargo: 'Arquitecto', departamento: 'Innovación', sueldo: 4500 };
 class MemoryRepository implements IEmployeeRepository {
@@ -41,7 +42,7 @@ class MemoryRepository implements IEmployeeRepository {
 }
 async function setup(t: import('node:test').TestContext) {
   const repository = new MemoryRepository();
-  const server = createApp(repository).listen(0, '127.0.0.1');
+  const server = createApp(repository, { authRepository: new MemoryAuthRepository(), jwtSecret: testSecret }).listen(0, '127.0.0.1');
   await once(server, 'listening');
   t.after(() => new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())));
   const address = server.address();
@@ -49,7 +50,7 @@ async function setup(t: import('node:test').TestContext) {
   const base = `http://127.0.0.1:${address.port}`;
   const request = async (path = '', method = 'GET', body?: unknown) => {
     const response = await fetch(`${base}/api/v1/employees${path}`, {
-      method, headers: { 'Content-Type': 'application/json' },
+      method, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${testToken()}` },
       ...(body === undefined ? {} : { body: JSON.stringify(body) }),
     });
     return { status: response.status, body: await response.json() };
@@ -82,7 +83,7 @@ test('paginación y alias español conservan el contrato', async t => {
   assert.equal(page.body.data.length, 1);
   assert.equal(page.body.data[0].nombre, 'Otra Persona');
   assert.deepEqual(page.body.meta, { total: 2, page: 2, limit: 1, pages: 2 });
-  const response = await fetch(`${base}/api/v1/empleados`);
+  const response = await fetch(`${base}/api/v1/empleados`, { headers: { Authorization: `Bearer ${testToken()}` } });
   assert.equal((await response.json()).data.length, 2);
 });
 
